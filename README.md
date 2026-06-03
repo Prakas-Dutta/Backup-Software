@@ -12,6 +12,8 @@ An automated, scheduled file backup tool for Windows. It copies modified files f
 - **Folder timestamp preservation** — copied folders retain their original creation/modification timestamps
 - **GUI configuration panel** — a Python/Tkinter interface to set source path, destination path, and backup time
 - **Auto-restart on config change** — if parameters change, the backup process is automatically restarted
+- **Zero CPU usage while waiting** — sleeps for the exact remaining seconds until backup time using `sleep()`
+- **Shutdown/crash recovery** — if the system shuts down mid-backup, the next run resumes from the incomplete backup
 
 ---
 
@@ -20,11 +22,13 @@ An automated, scheduled file backup tool for Windows. It copies modified files f
 ```
 Backup-Software/
 │
-├── Backup Software.c       # Core backup engine (C) — handles scheduling, file copying, and incremental logic
-├── Backup Software.exe     # Compiled backup engine (Windows executable)
-├── set parameters.py       # GUI tool (Python/Tkinter) to configure backup settings
-└── set parameters.exe      # Compiled GUI tool (Windows executable)
+├── Backup Software.c    # Core backup engine (C) — handles scheduling, file copying, and incremental logic
+├── set parameters.py    # GUI tool (Python/Tkinter) to configure backup settings
+├── .gitignore           # Excludes binaries and runtime files
+└── LICENSE              # MIT License
 ```
+
+> Compiled `.exe` files are available under [Releases](../../releases).
 
 ---
 
@@ -49,6 +53,10 @@ Backup-Software/
 
 ## 🚀 Getting Started
 
+### Download
+
+Download the latest precompiled `.exe` files from the [Releases](../../releases) page — no installation needed.
+
 ### Prerequisites
 
 - **Windows OS** (the backup engine uses Windows APIs — `CreateFile`, `SetFileTime`, `windows.h`)
@@ -57,14 +65,14 @@ Backup-Software/
 
 ### Usage
 
-1. Download or clone this repository.
+1. Download both `.exe` files from the [Releases](../../releases) page and place them in the same folder.
 2. Run **`set parameters.exe`** to open the configuration GUI.
 3. Select your **Source Path** and **Destination Path** using the folder browser.
 4. Set your preferred **backup time** using the dropdowns.
 5. Click **Set** — the backup engine will launch automatically.
 6. Keep **`Backup Software.exe`** running in the background. It will back up your files daily at the configured time.
 
-> **Note:** Both `.exe` files must be in the same directory as `info.txt` (auto-created on first run).
+> **Note:** Both `.exe` files must be kept in the same folder. `info.txt` is auto-created there on first run.
 
 ---
 
@@ -97,7 +105,7 @@ HH:MM:SS           ← Scheduled backup time
 <destination_path> ← Destination directory
 ```
 
-Do not manually edit this file unless you know what you're doing.
+> Do not manually edit this file unless you know what you're doing.
 
 ---
 
@@ -117,4 +125,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## 📄 License
 
-This project is open source. Feel free to use, modify, and distribute it.
+This project is licensed under the [MIT License](LICENSE).
